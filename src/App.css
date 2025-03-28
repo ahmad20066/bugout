@@ -39,32 +39,25 @@ a {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background-color: #1f1f1f !important;
-  color: #eee !important;
+  /* We use .navbar-dark and .bg-dark in JS for white toggler icon */
 }
 
 .navbar-brand,
 .nav-link {
-  background-color: #1f1f1f !important;
   color: #eee !important;
 }
 
-/* Add spacing between navbar items */
+/* Spacing between navbar items */
 .navbar-nav .nav-item {
   margin: 0 15px;
-  /* 15px space on both sides */
 }
 
-/* Hover effect on nav links */
-.navbar-nav .nav-link {
-  transition: color 0.3s ease;
-}
-
+/* On hover, nav links go orange */
 .navbar-nav .nav-link:hover {
   color: #FF6A00 !important;
 }
 
-/* Remove Bootstrap's .bg-dark color */
+/* Remove default .bg-dark overrides */
 .bg-dark {
   background-color: #1f1f1f !important;
 }
@@ -88,7 +81,6 @@ a {
   width: 100%;
   height: 100%;
   background: rgba(31, 31, 31, 0.6);
-  /* Semi-transparent overlay */
   z-index: 0;
 }
 
@@ -102,26 +94,21 @@ a {
   margin-bottom: 10px;
 }
 
-.hero-description {
-  font-size: 1rem !important;
-  /* Reduced font size */
-  margin-top: 20px;
-}
-
 .hero p {
   font-size: 1.5rem;
   margin-bottom: 30px;
 }
 
-/* Increase font size for the main paragraph above the button */
 .hero-main {
   font-size: 1.75rem;
-  /* Increased from 1.5rem */
   margin-bottom: 20px;
 }
 
-/* Decrease font size for the description below the button */
-
+.hero-description {
+  font-size: 1rem !important;
+  /* Slightly smaller text under button */
+  margin-top: 20px;
+}
 
 .btn-hero {
   background-color: #FF6A00;
@@ -133,13 +120,12 @@ a {
   margin-top: 50px;
 }
 
-/* SECTION */
+/* SECTION STYLING */
 section {
   padding: 80px 0;
   background-color: #1f1f1f !important;
 }
 
-/* Section Title with Accent Divider */
 .section-title {
   text-align: center;
   margin-bottom: 50px;
@@ -148,18 +134,6 @@ section {
   position: relative;
 }
 
-/* .section-title::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 4px;
-  background-color: #FF6A00;
-  margin: 10px auto 0 auto;
-  border-radius: 2px;
-} */
-
-/* Reusable Divider Element (if needed between sections) */
-/* Divider styling */
 /* Divider styling */
 .section-divider {
   width: 60px;
@@ -177,7 +151,6 @@ section {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  /* semi-transparent overlay */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -225,9 +198,15 @@ section {
   cursor: pointer;
 }
 
+/* WHO WE ARE SECTION - fix for large logo */
+.who-we-are-img {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
 
-
-/* Who We Are Section */
 #who-we-are p {
   font-size: 1.1rem;
   line-height: 1.8;
@@ -243,7 +222,6 @@ section {
   margin-bottom: 30px;
   transition: transform 0.3s;
   border: 1px solid #FF6A00;
-  /* Added accent border */
 }
 
 .service-box:hover {
@@ -266,25 +244,33 @@ section {
   color: #bbb;
 }
 
-/* FEATURES SECTION */
+/* FEATURES SECTION
+   Make feature items match .service-box in style and sizing. */
 .features .feature-item {
-  text-align: center;
-  padding: 20px;
   background-color: #1f1f1f !important;
+  padding: 30px;
   border-radius: 10px;
+  text-align: center;
+  margin: 0 15px 30px 15px;
+  transition: transform 0.3s;
   border: 1px solid #FF6A00;
-  margin-right: 30px;
-  /* Accent border for feature items */
+}
+
+.features .feature-item:hover {
+  transform: translateY(-10px);
 }
 
 .features .feature-item img {
-  width: 340px;
-  margin-bottom: 15px;
+  /* No forced max-height! Let images scale naturally. */
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
 }
 
 .features .feature-item h5 {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+  /* Matching service-box h4 size */
+  margin-bottom: 15px;
   color: #FF6A00;
 }
 
@@ -292,7 +278,14 @@ section {
   color: #bbb;
 }
 
-/* TESTIMONIALS SECTION */
+/* WHY CHOOSE US */
+#why-choose-us p {
+  color: #ccc;
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+/* TESTIMONIALS */
 .testimonial-box {
   background-color: #1f1f1f !important;
   padding: 30px;
@@ -348,4 +341,153 @@ footer {
 
 footer a {
   color: #FF6A00;
+}
+
+/* =========================================
+   MEDIA QUERIES FOR BETTER MOBILE LOOK
+   ========================================= */
+
+/* Tablets & Medium screens */
+@media (max-width: 768px) {
+
+  /* Make hero auto-size */
+  .hero {
+    height: auto;
+    padding: 60px 20px;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+  }
+
+  .hero-main {
+    font-size: 1.4rem;
+  }
+
+  .btn-hero {
+    margin-top: 30px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+
+  section {
+    padding: 60px 0;
+  }
+
+  /* Services smaller on tablet */
+  .service-box {
+    padding: 20px;
+  }
+
+  .service-box h4 {
+    font-size: 1.3rem;
+  }
+
+  .service-box p {
+    font-size: 0.95rem;
+  }
+
+  /* Features smaller on tablet (match Services) */
+  .features .feature-item {
+    padding: 20px;
+    margin: 0 10px 20px 10px;
+  }
+
+  .features .feature-item h5 {
+    font-size: 1.3rem;
+  }
+
+  .features .feature-item p {
+    font-size: 0.95rem;
+  }
+
+  #why-choose-us p {
+    font-size: 1.2rem;
+  }
+
+  .testimonial-box p {
+    font-size: 0.95rem;
+  }
+}
+
+/* Phones & Small screens */
+@media (max-width: 576px) {
+
+  .hero {
+    padding: 60px 20px;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+
+  .hero-main {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+
+  /* Services smaller on phone */
+  .service-box {
+    padding: 15px;
+    margin: 15px;
+  }
+
+  .service-box h4 {
+    font-size: 1.1rem;
+  }
+
+  .service-box p {
+    font-size: 0.85rem;
+  }
+
+  /* Features smaller on phone (match Services).
+     Keep margin so they're not stuck to the edges. */
+  .features .feature-item {
+    padding: 15px;
+    margin: 0 15px 20px 15px;
+  }
+
+  .features .feature-item h5 {
+    font-size: 1.1rem;
+  }
+
+  .features .feature-item p {
+    font-size: 0.85rem;
+  }
+
+  #why-choose-us p {
+    font-size: 1rem;
+    margin: 0 15px;
+  }
+
+  .testimonial-box {
+    padding: 20px;
+  }
+
+  .testimonial-box p {
+    font-size: 0.9rem;
+  }
+
+  .contact-section h2 {
+    font-size: 1.5rem;
+  }
 }

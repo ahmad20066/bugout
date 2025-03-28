@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+// 1) Import Bootstrap CSS and JS
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'; // Ensure your CSS file includes the divider and popup styles
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import './App.css'; // Your custom styling
 import logo from './logo.png';
 import nasa from './nasa.jpg';
 import pentest from './pentest.jpg';
@@ -9,7 +11,7 @@ import global from './global.jpg';
 import support from './support.jpg';
 import consultation from './consultation.jpg';
 import logoSmall from './logo-lanscape.png';
-
+import emailjs from 'emailjs-com'; // at the top
 // Divider Component
 function Divider() {
   return <div className="section-divider"></div>;
@@ -22,8 +24,22 @@ function SecurityTestPopup({ onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You could integrate an API call here to process the email.
-    setSubmitted(true);
+    const serviceID = 'service_yri394g';
+    const templateID = 'template_qdjo48j';
+    const publicKey = 'dUtebAaseBjOmN2le';
+
+    const templateParams = {
+      user_email: email,
+    };
+
+    emailjs.send(serviceID, templateID, templateParams, publicKey)
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+        setSubmitted(true);
+      }, (err) => {
+        console.log('FAILED...', err);
+        alert("Something went wrong. Please try again.");
+      });
   };
 
   return (
@@ -58,15 +74,23 @@ function SecurityTestPopup({ onClose }) {
 // Navbar Component
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg">
+    // 2) Use .navbar-dark and .bg-dark for a white toggle icon
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" href="#hero">
           <img src={logoSmall} alt="BugOutX Logo" style={{ maxHeight: '80px' }} />
         </a>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon" style={{ color: '#fff' }}></span>
-        </button>
+        {/* <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+        <span className="navbar-toggler-icon" />
+      </button> */}
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item"><a className="nav-link" href="#hero">Home</a></li>
@@ -79,11 +103,11 @@ function Navbar() {
           </ul>
         </div>
       </div>
-    </nav>
+    </nav >
   );
 }
 
-// Hero Section Component with Updated Button and Description
+// Hero Section Component
 function Hero({ onRequestSecurityTest }) {
   return (
     <section id="hero" className="hero">
@@ -103,7 +127,6 @@ function Hero({ onRequestSecurityTest }) {
   );
 }
 
-
 function WhoWeAre() {
   return (
     <section id="who-we-are">
@@ -116,8 +139,8 @@ function WhoWeAre() {
               BugOutX is a cybersecurity and bug-fixing company committed to empowering businesses
               with ironclad security, seamless performance, and bug-free software. Founded by experienced
               security experts and full-stack developers, our mission is to detect vulnerabilities and
-              fix issues before they lead to costly breaches—ensuring your digital operations remain robust
-              and efficient.
+              fix issues before they lead to costly breaches—ensuring your digital operations remain
+              robust and efficient.
             </p>
           </div>
           {/* Image Column */}
@@ -133,7 +156,6 @@ function WhoWeAre() {
     </section>
   );
 }
-
 
 function Services() {
   return (
@@ -179,29 +201,38 @@ function Services() {
 
 function Features() {
   return (
-    <section id="features">
+    <section id="features" className="bg-dark">
       <div className="container">
         <h2 className="section-title">Our Features</h2>
-        <div className="row features justify-content-center">
-          <div className="col-md-4 text-center feature-item">
-            <img src={global} alt="Global Reach" />
-            <h5>Global Reach</h5>
-            <p>
-              No matter where you are, BugOutX has you covered with our worldwide network of security experts.
-            </p>
+        <div className="row">
+          {/* Feature 1 */}
+          <div className="col-md-6">
+            <div className="service-box">
+              <img src={global} alt="Global Reach" />
+              <h4>Global Reach</h4>
+              <p>
+                No matter where you are, BugOutX has you covered with our worldwide network of security experts.
+              </p>
+            </div>
           </div>
-          <div className="col-md-4 text-center feature-item">
-            <img src={support} alt="24/7 Support" />
-            <h5>24/7 Support</h5>
-            <p>
-              Our virtual assistance is available around the clock to address any security concerns promptly.
-            </p>
+
+          {/* Feature 2 */}
+          <div className="col-md-6">
+            <div className="service-box">
+              <img src={support} alt="24/7 Support" />
+              <h4>24/7 Support</h4>
+              <p>
+                Our virtual assistance is available around the clock to address any security concerns promptly.
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
 }
+
+
 
 function WhyChooseUs() {
   return (
@@ -211,7 +242,8 @@ function WhyChooseUs() {
         <div className="row">
           <div className="col-md-12 text-center">
             <p style={{ fontSize: '1.5rem', color: '#ccc' }}>
-              With a proven track record and an expert team, BugOutX is your trusted partner in cybersecurity. We deliver rapid, cost-effective solutions that safeguard your business and drive success.
+              With a proven track record and an expert team, BugOutX is your trusted partner in cybersecurity.
+              We deliver rapid, cost-effective solutions that safeguard your business and drive success.
             </p>
           </div>
         </div>
@@ -229,7 +261,8 @@ function Testimonials() {
           <div className="col-md-6">
             <div className="testimonial-box">
               <p>
-                "BugOutX saved us from a critical security flaw that could have cost us thousands. Their expertise and rapid response are unparalleled."
+                "BugOutX saved us from a critical security flaw that could have cost us thousands. Their expertise and
+                rapid response are unparalleled."
               </p>
               <p className="client">- Alex M., CTO, SaaS Startup</p>
             </div>
@@ -237,7 +270,8 @@ function Testimonials() {
           <div className="col-md-6">
             <div className="testimonial-box">
               <p>
-                "We experienced a remarkable improvement in system performance after BugOutX's intervention. Their professionalism is unmatched."
+                "We experienced a remarkable improvement in system performance after BugOutX's intervention.
+                Their professionalism is unmatched."
               </p>
               <p className="client">- Sarah L., E-commerce Founder</p>
             </div>
@@ -254,9 +288,9 @@ function Contact() {
       <div className="container">
         <h2>Let's Work Together!</h2>
         <p>Book a free consultation with our cybersecurity experts.</p>
-        <p><strong>Phone:</strong> +1 (234) 567-8900</p>
-        <p><strong>Email:</strong> hello@bugoutx.com</p>
-        <a href="mailto:hello@bugoutx.com" className="btn btn-contact">Contact Us</a>
+        <p><strong>Phone:</strong> +963 0936324541</p>
+        <p><strong>Email:</strong> info@bugout-x.com</p>
+        <a href="mailto:info@bugout-x.com" className="btn btn-contact">Contact Us</a>
       </div>
     </section>
   );
@@ -269,9 +303,9 @@ function Footer() {
         <p>&copy; 2025 BugOutX. All Rights Reserved.</p>
         <p>
           Follow us:
-          <a href="#">Facebook</a> |
-          <a href="#">Twitter</a> |
-          <a href="#">LinkedIn</a>
+          {/* <a href="#">Facebook</a> |
+          <a href="#">Twitter</a> | */}
+          <a href="https://www.linkedin.com/company/bugoutx">LinkedIn</a>
         </p>
       </div>
     </footer>
